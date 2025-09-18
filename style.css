@@ -1,16 +1,19 @@
+/* Page layout */
 body {
-    font-family: Arial, sans-serif;
-    background: #fffae6;
+    font-family: 'Verdana', sans-serif; /* New simple font */
+    background: #f0f8ff; /* Soft light blue */
     display: flex;
     flex-direction: column;
     align-items: center;
     padding: 20px;
 }
 
+/* Page title */
 h1 {
-    color: #d35400;
+    color: #ff6347; /* Tomato red */
 }
 
+/* Container for fox cards */
 #fox-container {
     margin-top: 20px;
     display: flex;
@@ -19,28 +22,34 @@ h1 {
     justify-content: center;
 }
 
+/* Individual fox card */
 .fox-card {
-    background: #fff3e0;
-    border-radius: 15px;
+    background: #ffffff; /* White cards */
+    border-radius: 12px;
     padding: 10px;
     text-align: center;
     transition: transform 0.3s;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1); /* subtle shadow */
 }
 
+/* Hover effect */
 .fox-card:hover {
-    transform: scale(1.1);
+    transform: scale(1.05);
 }
 
+/* Fox image */
 .fox-card img {
     max-width: 200px;
-    border-radius: 10px;
+    border-radius: 8px;
 }
 
+/* Link styling */
 a {
     display: block;
     margin-top: 5px;
-    color: #d35400;
+    color: #ff6347;
     text-decoration: none;
+    font-weight: bold;
 }
 
 a:hover {
