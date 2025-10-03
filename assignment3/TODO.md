@@ -1,4 +1,2 @@
-- [x] Rename src/main.jsx to src/main.tsx
-- [x] Update import in src/main.tsx from './App.jsx' to './App.tsx'
-- [x] Update script src in index.html from /src/main.jsx to /src/main.tsx
-- [x] Test the application by running dev server
+- [x] Update assignment3/src/main.tsx to add ReactDOM import and rendering code to mount the App component to the DOM.
+- [x] Run the development server to test that the app works.

@@ -1,10 +1,11 @@
 import React, { useState } from "react";
+import ReactDOM from 'react-dom/client';
 
 export default function App() {
   // State for tasks (no type annotation)
   const [tasks, setTasks] = useState([
-    { id: "1", text: "Get an MRI", due: "2025-10-05", done: false },
-    { id: "2", text: "Get blood taken", due: "2025-10-06", done: false },
+    { id: "1", text: "Get an MRI", due: "2025-10-25", done: false },
+    { id: "2", text: "Get blood taken", due: "2025-10-015", done: false },
     { id: "3", text: "Halloween festivities", due: "2025-10-31", done: false },
     { id: "4", text: "Go camping", due: "2025-10-12", done: false }
   ]);
@@ -35,3 +36,5 @@ export default function App() {
     </div>
   );
 }
+
+ReactDOM.createRoot(document.getElementById('root')!).render(<App />);
