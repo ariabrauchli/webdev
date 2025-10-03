@@ -1,4 +1,4 @@
-#Assignment 3
+# Assignment 3
 ## Components
 <img width="339.33" height="255.66" alt="checklist" src="https://i.imgur.com/HCPDRQp.png" />
 
