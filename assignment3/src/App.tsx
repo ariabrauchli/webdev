@@ -1,7 +1,20 @@
-import React from "react";
+import React, { useState } from "react";
 
-// Mock data for tasks
-const TASKS = [
+type TaskItem = {
+  id: string;
+  text: string;
+  due: string;
+  done: boolean;
+};
+
+type TaskCategoryType = {
+  id: string;
+  name: string;
+  items: TaskItem[];
+};
+
+// Initial mock tasks
+const INITIAL_TASKS: TaskCategoryType[] = [
   {
     id: "tasks",
     name: "Tasks",
@@ -14,7 +27,6 @@ const TASKS = [
   }
 ];
 
-// Table header component
 function TaskHeader() {
   return (
     <div className="row header">
@@ -25,79 +37,125 @@ function TaskHeader() {
   );
 }
 
-// Single task row
-type TaskItem = {
-  id: string;
-  text: string;
-  due: string; 
-  done: boolean;
-};
-
-function TaskRow({ item }: { item: TaskItem }) {
+function TaskRow({ item, toggleDone }: { item: TaskItem; toggleDone: (id: string) => void }) {
   return (
     <div className="row">
       <div className="cell grow">
-        <input type="checkbox" checked={item.done} readOnly />
+        <input
+          type="checkbox"
+          checked={item.done}
+          onChange={() => toggleDone(item.id)}
+        />
         <span className={`task ${item.done ? "done" : ""}`}>{item.text}</span>
       </div>
       <div className="cell">{item.due}</div>
-      <div className="cell">
-        <button className="ghost" title="Delete">X</button>
-      </div>
     </div>
   );
 }
 
-// Add task row
-function AddTaskRow() {
+function AddTaskRow({ addTask }: { addTask: (text: string, due: string) => void }) {
+  const [text, setText] = useState("");
+  const [due, setDue] = useState("");
+
+  const handleAdd = () => {
+    if (text && due) {
+      addTask(text, due);
+      setText("");
+      setDue("");
+    }
+  };
+
   return (
     <div className="row add">
       <div className="cell grow">
-        <input placeholder="New task" />
+        <input
+          placeholder="New task"
+          value={text}
+          onChange={(e) => setText(e.target.value)}
+        />
       </div>
       <div className="cell">
-        <input type="date" />
+        <input
+          type="date"
+          value={due}
+          onChange={(e) => setDue(e.target.value)}
+        />
       </div>
       <div className="cell">
-        <button>Add</button>
+        <button onClick={handleAdd}>Add</button>
       </div>
     </div>
   );
 }
 
-// Task category section
-type TaskCategoryType = {
-  id: string;
-  name: string;
-  items: TaskItem[];
-};
-
-function TaskCategory({ category }: { category: TaskCategoryType }) {
+function TaskCategory({ category, toggleDone, addTask }: {
+  category: TaskCategoryType;
+  toggleDone: (id: string) => void;
+  addTask: (text: string, due: string) => void;
+}) {
   return (
     <div className="category">
       <div className="categoryTitle">{category.name}</div>
-      {category.items.map(item => <TaskRow key={item.id} item={item} />)}
-      <AddTaskRow />
+      {category.items.map(item => (
+        <TaskRow key={item.id} item={item} toggleDone={toggleDone} />
+      ))}
+      <AddTaskRow addTask={addTask} />
     </div>
   );
 }
 
-// Task table
-function TaskTable({ data }: { data: TaskCategoryType[] }) {
+function TaskTable({ data, toggleDone, addTask }: {
+  data: TaskCategoryType[];
+  toggleDone: (id: string) => void;
+  addTask: (text: string, due: string) => void;
+}) {
   return (
     <div className="table">
       <TaskHeader />
-      {data.map(cat => <TaskCategory key={cat.id} category={cat} />)}
+      {data.map(cat => (
+        <TaskCategory
+          key={cat.id}
+          category={cat}
+          toggleDone={toggleDone}
+          addTask={addTask}
+        />
+      ))}
     </div>
   );
 }
 
-// Main App
 export default function App() {
+  const [tasks, setTasks] = useState<TaskCategoryType[]>(INITIAL_TASKS);
+
+  // Toggle done/undone
+  const toggleDone = (id: string) => {
+    setTasks(prev =>
+      prev.map(cat => ({
+        ...cat,
+        items: cat.items.map(item =>
+          item.id === id ? { ...item, done: !item.done } : item
+        )
+      }))
+    );
+  };
+
+  // Add new task
+  const addTask = (text: string, due: string) => {
+    setTasks(prev =>
+      prev.map(cat => ({
+        ...cat,
+        items: [
+          ...cat.items,
+          { id: `t${Date.now()}`, text, due, done: false }
+        ]
+      }))
+    );
+  };
+
   return (
     <main className="container">
       <h1>My To-Do List</h1>
-      <TaskTable data={TASKS} />
+      <TaskTable data={tasks} toggleDone={toggleDone} addTask={addTask} />
     </main>
   );
 }
