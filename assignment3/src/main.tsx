@@ -9,7 +9,7 @@ export default function App() {
     { id: "4", text: "Go camping", due: "2025-10-12", done: false }
   ]);
 
-  const toggleDone = (id) => {
+  const toggleDone = (id: string) => {
     setTasks(prev =>
       prev.map(task =>
         task.id === id ? { ...task, done: !task.done } : task
