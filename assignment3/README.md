@@ -1,6 +1,6 @@
 #Assignment 3
 ## Components
-<img width="339.33" height="255.66" alt="image" src="https://i.imgur.com/HCPDRQp.png" />
+<img width="339.33" height="255.66" alt="checklist" src="https://i.imgur.com/HCPDRQp.png" />
 
 This is my mock up checklist
 I broke the app into 4 main components:
@@ -15,7 +15,7 @@ I broke the app into 4 main components:
 Above is my simple mockup for my checklist app. A user can: add items to the to-do list, mark items as done, or delete individual items from the list entirely.
 
 ## UI Minimal Representation
-<img width="339.33" height="255.66" alt="Checklist Mockup" src="https://i.imgur.com/K81fbLM.png" />
+<img width="339.33" height="255.66" alt="ui" src="https://i.imgur.com/K81fbLM.png" />
 
 
 Since the application can be broken down into four major components, the hierarchy is as follows:
