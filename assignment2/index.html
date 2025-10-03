@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WapapapapapaPOW</title>
+    <!-- connect to styles.css for the page's look -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<h1>Random Fox Gallery</h1>
+
+<!-- button the user clicks -->
+<button id="load-fox">Show me a fox!</button>
+
+<!-- where the fox pictures will go -->
+<div id="fox-container"></div>
+
+<script>
+// get the button and container
+const button = document.getElementById('load-fox');
+const container = document.getElementById('fox-container');
+
+// ask the API for a fox
+async function fetchFox() {
+    try {
+        const res = await fetch('https://randomfox.ca/floof/'); // get data
+        const data = await res.json(); // turn it into JSON
+        return data; // send the fox data back
+    } catch (error) {
+        console.error("Error fetching fox:", error);
+        return null;
+    }
+}
+
+// make a card with the fox picture + link
+function createFoxCard(foxData) {
+    const card = document.createElement('div');
+    card.classList.add('fox-card'); // style hook
+    card.innerHTML = `
+        <img src="${foxData.image}" alt="Random Fox">
+        <a href="${foxData.link}" target="_blank">View Source</a>
+    `;
+    container.appendChild(card); // put card on page
+}
+
+// when button is clicked, fetch and show a fox
+button.addEventListener('click', async () => {
+    const fox = await fetchFox();
+    if (fox) createFoxCard(fox);
+});
+</script>
+</body>
+</html>

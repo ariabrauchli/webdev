@@ -1,0 +1,55 @@
+/* Page layout */
+body {
+    font-family: 'Verdana', sans-serif; /* New simple font */
+    background: #f0f8ff; /* Soft light blue */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+}
+
+/* Page title */
+h1 {
+    color: #ff6347; /* Tomato red */
+}
+
+/* Container for fox cards */
+#fox-container {
+    margin-top: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+}
+
+/* Individual fox card */
+.fox-card {
+    background: #ffffff; /* White cards */
+    border-radius: 12px;
+    padding: 10px;
+    text-align: center;
+}
+
+/* Hover effect */
+.fox-card:hover {
+    transform: scale(1.05);
+}
+
+/* Fox image */
+.fox-card img {
+    max-width: 200px;
+    border-radius: 8px;
+}
+
+/* Link styling */
+a {
+    display: block;
+    margin-top: 5px;
+    color: #ff6347;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+a:hover {
+    text-decoration: underline;
+}
