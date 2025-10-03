@@ -1,4 +1,0 @@
-- [x] Rename src/main.jsx to src/main.tsx
-- [x] Update import in src/main.tsx from './App.jsx' to './App.tsx'
-- [x] Update script src in index.html from /src/main.jsx to /src/main.tsx
-- [x] Test the application by running dev server
