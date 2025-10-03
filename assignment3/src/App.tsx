@@ -29,7 +29,7 @@ function TaskHeader() {
 type TaskItem = {
   id: string;
   text: string;
-  due: string;
+  due: string; 
   done: boolean;
 };
 
