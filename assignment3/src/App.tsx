@@ -1,93 +1,49 @@
-import React, { useState } from "react";
+import { useState } from "react";
+import Header from "./components/Header";
+import ToDoList from "./components/ToDoList";
+import AddToDo from "./components/AddToDo";
 
-type Task = {
-  id: string;
-  text: string;
-  due: string;
+export type Todo = {
+  id: number;
+  label: string;
   done: boolean;
 };
 
+let nextId = 8;
+
+const INITIAL_TODOS: Todo[] = [
+  { id: 1, label: "grocery shopping", done: true },
+  { id: 2, label: "laundry", done: true },
+  { id: 3, label: "amazon returns", done: false },
+  { id: 4, label: "front end web dev assignment", done: false },
+  { id: 5, label: "laundry", done: false },
+  { id: 6, label: "vacuum house", done: false },
+  { id: 7, label: "replace bike chain", done: false },
+];
+
 export default function App() {
-  // State for tasks
-  const [tasks, setTasks] = useState<Task[]>([
-    { id: "1", text: "Get an MRI", due: "2025-10-05", done: false },
-    { id: "2", text: "Get blood taken", due: "2025-10-06", done: false },
-    { id: "3", text: "Halloween festivities", due: "2025-10-31", done: false },
-    { id: "4", text: "Go camping", due: "2025-10-12", done: false },
-  ]);
+  const [todos, setTodos] = useState<Todo[]>(INITIAL_TODOS);
 
-  // State for new task input
-  const [newText, setNewText] = useState("");
-  const [newDue, setNewDue] = useState("");
-
-  // Toggle done
-  const toggleDone = (id: string) => {
-    setTasks(prev =>
-      prev.map(task => (task.id === id ? { ...task, done: !task.done } : task))
+  function handleToggle(id: number) {
+    setTodos((prev) =>
+      prev.map((t) => (t.id === id ? { ...t, done: !t.done } : t))
     );
-  };
+  }
 
-  // Add new task
-  const addTask = () => {
-    if (!newText || !newDue) return;
-    const newTask: Task = {
-      id: Date.now().toString(),
-      text: newText,
-      due: newDue,
-      done: false,
-    };
-    setTasks(prev => [...prev, newTask]);
-    setNewText("");
-    setNewDue("");
-  };
+  function handleRemove(id: number) {
+    setTodos((prev) => prev.filter((t) => t.id !== id));
+  }
+
+  function handleAdd(label: string) {
+    if (!label.trim()) return;
+    setTodos((prev) => [...prev, { id: nextId++, label, done: false }]);
+  }
 
   return (
-    <main className="container">
-      <h1>My To-Do List</h1>
-
-      <div className="table">
-        {/* Table Header */}
-        <div className="row header">
-          <div className="cell grow">Task</div>
-          <div className="cell">Due Date</div>
-        </div>
-
-        {/* Tasks */}
-        {tasks.map(task => (
-          <div key={task.id} className="row">
-            <div className="cell grow">
-              <input
-                type="checkbox"
-                checked={task.done}
-                onChange={() => toggleDone(task.id)}
-              />
-              <span className={`task ${task.done ? "done" : ""}`}>{task.text}</span>
-            </div>
-            <div className="cell">{task.due}</div>
-          </div>
-        ))}
-
-        {/* Add New Task */}
-        <div className="row add">
-          <div className="cell grow">
-            <input
-              placeholder="New task"
-              value={newText}
-              onChange={e => setNewText(e.target.value)}
-            />
-          </div>
-          <div className="cell">
-            <input
-              type="date"
-              value={newDue}
-              onChange={e => setNewDue(e.target.value)}
-            />
-          </div>
-          <div className="cell">
-            <button onClick={addTask}>Add</button>
-          </div>
-        </div>
-      </div>
+    <main>
+      <Header />
+      <ToDoList todos={todos} onToggle={handleToggle} onRemove={handleRemove} />
+      <AddToDo onAdd={handleAdd} />
     </main>
   );
 }
