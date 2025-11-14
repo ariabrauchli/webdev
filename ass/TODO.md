@@ -1,0 +1,2 @@
+- [x] Update assignment3/src/main.tsx to add ReactDOM import and rendering code to mount the App component to the DOM.
+- [x] Run the development server to test that the app works.
